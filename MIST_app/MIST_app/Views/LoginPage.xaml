@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodels="clr-namespace:MIST_app.ViewModels" x:DataType="viewmodels:LoginViewModel"
+             x:Class="MIST_app.Views.LoginPage"
+             Shell.NavBarIsVisible="False">
+    <ContentPage.Content>
+        <StackLayout Margin="20,0">
+            <Image Source="forum_icon.png" HeightRequest="150" Margin="50"/>
+            <Frame BorderColor="{StaticResource Primary}" CornerRadius="10">
+                <StackLayout VerticalOptions="CenterAndExpand">
+                    <Label Text="Authorization" HorizontalTextAlignment="Center" FontSize="Subtitle" FontAttributes="Bold"/>
+                    <Entry x:Name="LoginEntry" Placeholder="Login" HorizontalTextAlignment="Center" Text="{Binding Login, Mode=TwoWay}"/>
+                    <Entry x:Name="PasswordEntry" IsPassword="True" Placeholder="Password" HorizontalTextAlignment="Center" Text="{Binding Password, Mode=TwoWay}"/>
+                    <Button x:Name="SignInButton" Text="Sign in" Command="{Binding AttemptLoginCommand}" />
+                    <Label Text="Don't have an account?" HorizontalOptions="CenterAndExpand">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding GoToRegisterCommand}"/>
+                        </Label.GestureRecognizers>
+                    </Label>
+                </StackLayout>
+            </Frame>
+        </StackLayout>
+    </ContentPage.Content>
+
+</ContentPage>

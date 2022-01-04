@@ -1,0 +1,84 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MIST_app.Views.ItemDetailPage"
+             xmlns:local="clr-namespace:MIST_app.ViewModels" 
+             xmlns:model="clr-namespace:MIST_infrastructure.Entities;assembly=MIST_infrastructure" 
+             x:DataType="local:PostViewModel"
+             Title="{Binding Title}">
+
+    <RefreshView Command="{Binding LoadCommentsCommand}" IsRefreshing="{Binding IsBusy, Mode=TwoWay}">
+        <StackLayout Margin="20,0">
+            <StackLayout Margin="0,20">
+                <StackLayout Orientation="Horizontal" Spacing="20">
+                    <Image Source="user.png" HeightRequest="40"/>
+                    <StackLayout>
+                        <StackLayout Orientation="Horizontal" HorizontalOptions="Start" Spacing="0">
+                            <Label Text="@" FontSize="Small" TextColor="Black" FontAttributes="Bold"/>
+                            <Label Text="{Binding Post.Author.Name}" TextColor="Black" FontSize="Subtitle" FontAttributes="Bold" />
+                        </StackLayout>
+                        <Label Text="{Binding Post.Date}" TextColor="DarkBlue" FontSize="Micro"/>
+                    </StackLayout>
+                </StackLayout>
+
+
+
+                <Label Text="{Binding Post.Subject}" TextColor="Black" FontSize="Title" FontAttributes="Bold"/>
+                <Label Text="{Binding Post.Body}"/>
+            </StackLayout>
+
+            <BoxView Color="{StaticResource Primary}"  HeightRequest="2" HorizontalOptions="Fill" />
+            <!--<BoxView Color="{StaticResource Primary}"  HeightRequest="2" HorizontalOptions="Fill" />-->
+
+            <CollectionView x:Name="ItemsListView"
+                ItemsSource="{Binding Comments}"
+                SelectionMode="None">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid x:DataType="model:Comment">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="0.1*"/>
+                                <ColumnDefinition Width="0.9*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+
+                            <StackLayout Grid.Column="1" Margin="0,5" HorizontalOptions="End">
+                                <Frame CornerRadius="15" BackgroundColor="AliceBlue" BorderColor="{StaticResource Primary}" Padding="0" Margin="2,2,10,2">
+                                    <StackLayout Padding="10"   Margin="1,1,1,1">
+                                        <Label Text="{Binding Date}" FontSize="Micro" HorizontalOptions="End" TextColor="DarkBlue"/>
+                                        <StackLayout Orientation="Horizontal" HorizontalOptions="End" Spacing="0">
+                                            <Label Text="@" FontSize="Small" TextColor="Black" FontAttributes="Bold"/>
+                                            <Label Text="{Binding CommentAuthor.Name}" TextColor="Black" FontSize="Small" FontAttributes="Bold" />
+                                        </StackLayout>
+                                        <Label Text="{Binding Text}" HorizontalOptions="End"/>
+                                    </StackLayout>
+                                </Frame>
+                            </StackLayout>
+
+
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+            <Grid VerticalOptions="EndAndExpand" Margin="5,5,5,20">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="0.8*"/>
+                    <ColumnDefinition Width="0.2*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <ScrollView Grid.Column="0" Grid.RowSpan="2">
+                    <Entry Placeholder="Comment" MaxLength="1000" Text="{Binding NewCommentText}"/>
+                </ScrollView>
+                <Button BackgroundColor="{StaticResource Primary}" CornerRadius="10" Text="Send" Grid.Column="1" Grid.Row="1" Command="{Binding OnSaveCommand}"/>
+            </Grid>
+        </StackLayout>
+    </RefreshView>
+
+</ContentPage>

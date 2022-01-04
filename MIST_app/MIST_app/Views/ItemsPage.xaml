@@ -1,0 +1,76 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MIST_app.Views.ItemsPage"
+             xmlns:local="clr-namespace:MIST_app.ViewModels"  
+             xmlns:model="clr-namespace:MIST_infrastructure.Entities;assembly=MIST_infrastructure" 
+             x:DataType="local:ItemsViewModel"
+             x:Name="BrowseItemsPage"
+             Title="{Binding Title}">
+    
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Add" Command="{Binding AddItemCommand}" />
+    </ContentPage.ToolbarItems>
+    <!--
+      x:DataType enables compiled bindings for better performance and compile time validation of binding expressions.
+      https://docs.microsoft.com/xamarin/xamarin-forms/app-fundamentals/data-binding/compiled-bindings
+    -->
+    <RefreshView x:DataType="local:ItemsViewModel" Command="{Binding LoadItemsCommand}" IsRefreshing="{Binding IsBusy, Mode=TwoWay}">
+        <StackLayout Margin="20,0">
+            <Label Text="Recent posts" TextColor="Black" FontSize="50" HorizontalOptions="Center"/>
+            <BoxView Color="DarkBlue"  HeightRequest="2" HorizontalOptions="Fill" />
+            <CollectionView HorizontalOptions="Center" 
+                            x:Name="ItemsListView"
+                            ItemsSource="{Binding Items}"
+                            SelectionMode="None" Margin="0, 30, 0, 30">
+                <CollectionView.ItemsLayout>
+                    <LinearItemsLayout ItemSpacing="15" Orientation="Vertical" />
+                </CollectionView.ItemsLayout>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Frame BorderColor="{StaticResource Primary}" Padding="1"  CornerRadius="5">
+                            <Frame BorderColor="{StaticResource Primary}"  CornerRadius="5" BackgroundColor="AliceBlue">
+                                <StackLayout x:DataType="model:Post">
+
+                                    <StackLayout Orientation="Horizontal" Spacing="20">
+                                        <Image Source="user.png" HeightRequest="40"/>
+                                        <StackLayout>
+                                            <StackLayout Orientation="Horizontal" HorizontalOptions="Start" Spacing="0">
+                                                <Label Text="@" FontSize="Small" TextColor="Black" FontAttributes="Bold"/>
+                                                <Label Text="{Binding Author.Name}" TextColor="Black" FontSize="Subtitle" FontAttributes="Bold" />
+                                            </StackLayout>
+                                            <Label Text="{Binding Date}" TextColor="DarkBlue"  FontSize="Micro"/>
+                                        </StackLayout>
+                                    </StackLayout>
+
+                                    <Label Text="{Binding Subject}" 
+                                       LineBreakMode="NoWrap"
+                                       FontSize="Title" 
+                                       TextColor="Black"
+                                       FontAttributes="Bold" />
+                                    <Label Text="{Binding Body}" 
+                                       LineBreakMode="NoWrap" />
+
+                                    <StackLayout Orientation="Horizontal" Spacing="0" HorizontalOptions="End">
+                                        <Label Text="Comments: " TextColor="DarkBlue"/>
+                                        <Label Text="{Binding Comments.Count}"  TextColor="DarkBlue"/>
+                                    </StackLayout>
+
+
+
+                                    <StackLayout.GestureRecognizers>
+                                        <TapGestureRecognizer 
+                                        NumberOfTapsRequired="1"
+                                        Command="{Binding Source={RelativeSource AncestorType={x:Type local:ItemsViewModel}}, Path=ItemTapped}"		
+                                        CommandParameter="{Binding .}">
+                                        </TapGestureRecognizer>
+                                    </StackLayout.GestureRecognizers>
+                                </StackLayout>
+                            </Frame>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </StackLayout>
+    </RefreshView>
+</ContentPage>

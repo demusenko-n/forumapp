@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MIST_app.Views.ProfilePage"
+             xmlns:viewmodels="clr-namespace:MIST_app.ViewModels" 
+             x:DataType="viewmodels:ProfileViewModel"
+             Title="{Binding Title}">
+    <ContentPage.Content>
+        <StackLayout>
+            <Image Source="user.png" WidthRequest="200"/>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="0.7*"/>
+                    <ColumnDefinition Width="0.3*"/>
+                </Grid.ColumnDefinitions>
+
+                <Label Grid.Row="0" Margin="0,20,0,0" FontSize="20" Text="Name" Grid.ColumnSpan="2" HorizontalTextAlignment="Center"/>
+
+                <Entry Grid.Column="0" Grid.Row="1" Text="{Binding Name}" Margin="10,0"/>
+                <Button HeightRequest="35" Margin="10,10,20,10" Grid.Column="1"  Grid.Row="1" Text="Save" Command="{Binding ChangeNameCommand}"/>
+
+                <Label Margin="0,20,0,0"  Grid.Row="2" FontSize="20" Text="Login" Grid.ColumnSpan="2" HorizontalTextAlignment="Center"/>
+
+                <Entry Grid.Column="0" Grid.Row="3" Text="{Binding Login}" Margin="10,0"/>
+                <Button HeightRequest="35" Margin="10,10,20,10" Grid.Column="1"  Grid.Row="3" Text="Save"  Command="{Binding ChangeLoginCommand}"/>
+
+                <Label Margin="0,20,0,0"  Grid.Row="4" FontSize="20" Text="Password" Grid.ColumnSpan="2" HorizontalTextAlignment="Center"/>
+
+                <Entry IsPassword="True" Grid.Column="0" Grid.Row="5" Text="{Binding Password}" Margin="10,0"/>
+                <Button HeightRequest="35" Margin="10,10,20,10" Grid.Column="1"  Grid.Row="5" Text="Save"  Command="{Binding ChangePasswordCommand}"/>
+
+            </Grid>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Test.MainPage">
+
+    
+    <StackLayout>
+        <Frame BackgroundColor="#86FF7F" Padding="24" CornerRadius="20">
+            <Label Text="Welcome to ebaniy forum!" HorizontalTextAlignment="Center" TextColor="#656A64" FontSize="36"/>
+        </Frame>
+        <Frame BackgroundColor="#E8F671" Padding="24" CornerRadius="30">
+            <Label Text="Anime?" FontSize="Title" Padding="30,10,30,10"/>
+        </Frame>
+        <Label Text="Prikol" FontSize="16" Padding="30,0,30,0"/>
+        <Label FontSize="16" Padding="30,24,30,0">
+            <Label.FormattedText>
+                <FormattedString>
+                    <FormattedString.Spans>
+                        <Span Text="Learn more at "/>
+                        <Span Text="http://obamarang.com" FontAttributes="Bold" TextColor="#719BF6">
+                            <Span.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding Open}" CommandParameter="http://obamarang.com"/>
+                            </Span.GestureRecognizers>
+                        </Span>
+                    </FormattedString.Spans>
+                </FormattedString>
+            </Label.FormattedText>
+        </Label>
+        <Button Margin="0,10,0,0" Text="Open"
+                        Command="{Binding Open}"
+                        CommandParameter="http://obamarang.com"
+                        BackgroundColor="#F69F71"
+                        TextColor="White"
+                        CornerRadius="50"/>
+    </StackLayout>
+
+</ContentPage>
